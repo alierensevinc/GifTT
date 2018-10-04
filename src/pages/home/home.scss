@@ -1,0 +1,18 @@
+.homeContent {
+    background-image: url("https://media.giphy.com/media/YJBNjrvG5Ctmo/giphy.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: black;
+}
+
+.homeSearchItem {
+    background-color: transparent;
+    color: white;
+
+    .homeSearchInput {
+        font-size: 0.8em;
+        margin-bottom: 0px;
+    }
+}
+

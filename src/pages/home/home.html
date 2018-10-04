@@ -1,0 +1,24 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>GifTT</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="homeContent">
+
+  <ion-item class="homeSearchItem"> 
+    <ion-input type="text" [(ngModel)]="searchWord" class="homeSearchInput" placeholder="Trump, Cats, Anything"></ion-input>
+    <button ion-button clear color="light" item-right (click)="goSearchPage()" [disabled]="!searchWord">Search</button>
+  </ion-item>
+  
+
+</ion-content>
