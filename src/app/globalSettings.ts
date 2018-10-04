@@ -20,8 +20,6 @@ export class GlobalSettingsProvider {
   private trendingEndPoint = 'https://api.giphy.com/v1/gifs/trending?api_key=XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq&limit=25&rating=G';
   private randomEndPoint = 'https://api.giphy.com/v1/gifs/random?api_key=XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq&tag=&rating=G';
 
-  //deneme 
-  
   getKey() {
     return this.KEY;
   }
