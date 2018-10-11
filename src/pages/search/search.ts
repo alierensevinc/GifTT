@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ActionSheetController } from 'ionic-angular';
 import { GiphyServiceProvider } from './../../providers/giphy-service/giphy-service';
-
-/**
- * Generated class for the SearchPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
 
 @IonicPage()
 @Component({
@@ -22,47 +17,53 @@ export class SearchPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public giphyService: GiphyServiceProvider, public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
+    public alertCtrl: AlertController, public socialSharing: SocialSharing,
+    public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController) {
     this.searchWord = navParams.get('searchWord');
 
     this.loading = this.loadingCtrl.create({
       spinner: 'crescent',
-      content: 'Some magic happens.',
+      content: 'Some magic happens.'
     });
     this.loading.present();
 
     this.giphyService.searchGif(this.searchWord).then((data: any) => {
       this.searchResults = data.data;
       if (this.searchResults.length != 0) {
-        console.log(this.searchResults);
-        this.searchResults = data.data;
         this.loading.dismiss();
       } else {
         this.loading.dismiss();
         let alert = this.alertCtrl.create({
           title: 'Oops',
-          subTitle: `We cannot find a result about '${this.searchWord}' \nWe are sorry`,
+          subTitle: `We cannot find a result about '${this.searchWord}' \nWe are sorry\nHere is a random gif for you`,
           buttons: ['Let\'s Try Something Else']
         });
         alert.present();
-        // random gif çağır
+        this.giphyService.getRandomGif().then((data: any) => {
+          this.searchResults.push(data.data);
+        })
       }
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
-  }
-
-  showImageActionSheet() {
+  showImageActionSheet(gif) {
     const actionSheet = this.actionSheetCtrl.create({
-      title: 'Save Image',
       buttons: [
         {
-          text: 'Save',
-          role: 'save',
+          text: 'Add to the Favorites',
           handler: () => {
-            console.log('Save clicked');
+            console.log('Added to favorites');
+            this.storageService.saveFavorites(gif);
+          }
+        }, {
+          text: 'Share',
+          handler: () => {
+
+          }
+        }, {
+          text: 'Save',
+          handler: () => {
+
           }
         }, {
           text: 'Cancel',
@@ -77,3 +78,12 @@ export class SearchPage {
   }
 
 }
+
+/*
+    // this.socialSharing.share(("Here is a Gif for you from GifTT : " + gif.title + "\n" + encodeURI(gif.images.original.url)), "GifTT Gif").then((res) => {
+    //   console.log(res);
+    // }).catch((err) => {
+    //   console.log(err);
+    // });
+    this.socialSharing.shareViaWhatsApp(encodeURI(gif.images.original.url), encodeURI(gif.images.original.url), encodeURI(gif.images.original.url));
+*/
