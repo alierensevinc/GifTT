@@ -1,32 +1,63 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
 
 @Injectable()
 export class StorageServiceProvider {
 
-  public gifArray: any[] = [];
-
-  constructor(public http: HttpClient, public storage: Storage) {
+  constructor(public http: HttpClient, public storage: Storage,
+    public alertCtrl: AlertController) {
   }
 
   getFavorites() {
-    return this.storage.get('favorites');
+    return this.storage.get('favorites').then((data: any) => {
+      return JSON.parse(data);
+    });
   }
 
-  saveFavorites(gifData) {
-    this.storage.get('favorites').then((favoritesData) => {
-      this.gifArray = favoritesData;
-      this.gifArray.push(gifData);
-      return this.storage.set('favorites', this.gifArray);
+  isInFavorites(gifData) {
+    let isInside: boolean = false;
+    return this.storage.get('favorites').then((data: any) => {
+      data = JSON.parse(data);
+      if (data == null) {
+        return false;
+      } else {
+        for (let gif of data) {
+          if (gif.id == gifData.id) {
+            isInside = true;
+          }
+        }
+        return isInside;
+      }
+    });
+  }
+
+  saveFavorite(gifData) {
+    this.storage.get('favorites').then((data: any) => {
+      data = JSON.parse(data);
+      if (data == null) {
+        data = [];
+        data.push(gifData);
+        this.storage.set('favorites', JSON.stringify(data));
+      } else {
+        data.push(gifData);
+        this.storage.set('favorites', JSON.stringify(data));
+      }
     });
   }
 
   deleteFavorite(gifData) {
+    return this.storage.get('favorites').then((data: any) => {
+      data = JSON.parse(data);
 
-    // Gif'i Id'den bul sil tekrar kaydet
-
-    return this.getFavorites();
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].id == gifData.id) {
+          data = data.slice(i, 1);
+          this.storage.set('favorites', JSON.stringify(data));
+        }// HEPSİNİ SİLİYOR BURADA KALDIN
+      }
+    });
   }
 
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ActionSheetController } from 'ionic-angular';
-import { GiphyServiceProvider } from './../../providers/giphy-service/giphy-service';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { GiphyServiceProvider } from './../../providers/giphy-service/giphy-service';
 import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
 
 @IonicPage()
@@ -11,8 +11,8 @@ import { StorageServiceProvider } from '../../providers/storage-service/storage-
 })
 export class SearchPage {
 
-  searchWord: String;
   loading: any;
+  searchWord: String;
   searchResults: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -23,7 +23,7 @@ export class SearchPage {
 
     this.loading = this.loadingCtrl.create({
       spinner: 'crescent',
-      content: 'Some magic happens.'
+      content: 'Some magic happens...'
     });
     this.loading.present();
 
@@ -50,10 +50,26 @@ export class SearchPage {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Add to the Favorites',
+          text: 'Add to favorites',
           handler: () => {
-            console.log('Added to favorites');
-            this.storageService.saveFavorites(gif);
+            this.storageService.isInFavorites(gif).then((data: any) => {
+              if (data == true) {
+                let alert = this.alertCtrl.create({
+                  title: 'Oh no',
+                  subTitle: `But this gif is already in your favorites`,
+                  buttons: ['Ok then']
+                });
+                alert.present();
+              } else {
+                this.storageService.saveFavorite(gif);
+                let alert = this.alertCtrl.create({
+                  title: 'Yeah',
+                  subTitle: `Added to favorites`,
+                  buttons: ['Great']
+                });
+                alert.present();
+              }
+            });
           }
         }, {
           text: 'Share',
@@ -69,7 +85,7 @@ export class SearchPage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+
           }
         }
       ]

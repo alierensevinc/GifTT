@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ActionSheetController } from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { GiphyServiceProvider } from '../../providers/giphy-service/giphy-service';
 import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
 
@@ -15,15 +16,15 @@ export class TrendPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public giphyService: GiphyServiceProvider, public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController,
-    public storageService: StorageServiceProvider) {
+    public alertCtrl: AlertController, public socialSharing: SocialSharing,
+    public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController) {
 
   }
 
   ionViewDidEnter() {
     this.loading = this.loadingCtrl.create({
       spinner: 'crescent',
-      content: 'Some magic happens.'
+      content: 'Some magic happens...'
     })
     this.loading.present();
 
@@ -50,10 +51,26 @@ export class TrendPage {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Add to the Favorites',
+          text: 'Add to Favorites',
           handler: () => {
-            console.log('Added to favorites');
-            this.storageService.saveFavorites(gif);
+            this.storageService.isInFavorites(gif).then((data: any) => {
+              if (data == true) {
+                let alert = this.alertCtrl.create({
+                  title: 'Oh no',
+                  subTitle: `But this gif is already in your favorites`,
+                  buttons: ['Ok then']
+                });
+                alert.present();
+              } else {
+                this.storageService.saveFavorite(gif);
+                let alert = this.alertCtrl.create({
+                  title: 'Yeah',
+                  subTitle: `Added to favorites`,
+                  buttons: ['Great']
+                });
+                alert.present();
+              }
+            });
           }
         }, {
           text: 'Share',
@@ -69,7 +86,7 @@ export class TrendPage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+
           }
         }
       ]

@@ -1,7 +1,7 @@
 <ion-content padding class="searchContent">
   <ion-list no-lines *ngIf="searchResults">
     <ion-card class="searchItem" *ngFor="let result of searchResults">
-      <img [src]="result.images.original.url" alt="There must be a big problem">
+      <img (press)="showImageActionSheet(result)" [src]="result.images.original.url" alt="There must be a big problem">
     </ion-card>
   </ion-list>
 </ion-content>

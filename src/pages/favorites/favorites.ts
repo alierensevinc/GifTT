@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController, AlertController } from 'ionic-angular';
 import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
 
 @IonicPage()
@@ -14,30 +14,49 @@ export class FavoritesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storageService: StorageServiceProvider, public loadingCtrl: LoadingController,
-    public actionSheetCtrl: ActionSheetController) {
+    public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController) {
+
+    this.storageService.getFavorites().then((data: any) => {
+      if (data == null) {
+        this.favoritesResults = [];
+      } else {
+        this.favoritesResults = data;
+      }
+    })
+
   }
 
   ionViewDidEnter() {
     this.loading = this.loadingCtrl.create({
       spinner: 'crescent',
-      content: 'Some magic happens.'
+      content: 'Some magic happens...'
     })
     this.loading.present();
 
-    this.storageService.getFavorites().then((favoritesData) => {
-      this.favoritesResults = favoritesData;
-      this.loading.dismiss();
+    this.storageService.getFavorites().then((data: any) => {
+      if (data == null) {
+        this.favoritesResults = [];
+      } else {
+        this.favoritesResults = data;
+      }
     })
+
+    this.loading.dismiss();
   }
 
   showImageActionSheet(gif) {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Remove from the Favorites',
+          text: 'Delete from favorites',
           handler: () => {
-            console.log('Added to favorites');
-            this.storageService.saveFavorites(gif);
+            this.storageService.deleteFavorite(gif);
+            let alert = this.alertCtrl.create({
+              title: 'Success',
+              subTitle: `We removed that ugly gif from your favorites`,
+              buttons: ['Great']
+            });
+            alert.present();
           }
         }, {
           text: 'Share',
@@ -53,7 +72,7 @@ export class FavoritesPage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+
           }
         }
       ]
