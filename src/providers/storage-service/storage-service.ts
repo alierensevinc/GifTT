@@ -50,12 +50,11 @@ export class StorageServiceProvider {
   deleteFavorite(gifData) {
     return this.storage.get('favorites').then((data: any) => {
       data = JSON.parse(data);
-
       for (let i = 0; i < data.length; i++) {
         if (data[i].id == gifData.id) {
-          data = data.slice(i, 1);
+          data.splice(i, 1);
           this.storage.set('favorites', JSON.stringify(data));
-        }// HEPSİNİ SİLİYOR BURADA KALDIN
+        }
       }
     });
   }

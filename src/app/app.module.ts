@@ -7,6 +7,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { IonicStorageModule } from '@ionic/storage';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -50,7 +52,10 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
     GiphyServiceProvider,
     GlobalSettingsProvider,
     SocialSharing,
-    StorageServiceProvider
+    StorageServiceProvider,
+    FileTransfer,
+    FileTransferObject,
+    File
   ]
 })
 export class AppModule {}

@@ -83,10 +83,7 @@ export class SearchPage {
           }
         }, {
           text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-
-          }
+          role: 'cancel'
         }
       ]
     });

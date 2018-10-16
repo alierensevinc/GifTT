@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { GiphyServiceProvider } from '../../providers/giphy-service/giphy-service';
 import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -13,11 +15,15 @@ export class TrendPage {
 
   loading: any;
   trendResults: any;
+  fileTransfer: FileTransferObject;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public giphyService: GiphyServiceProvider, public loadingCtrl: LoadingController,
     public alertCtrl: AlertController, public socialSharing: SocialSharing,
-    public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController) {
+    public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController,
+    private transfer: FileTransfer, private file: File) {
+
+    this.fileTransfer = this.transfer.create();
 
   }
 
@@ -48,6 +54,7 @@ export class TrendPage {
   }
 
   showImageActionSheet(gif) {
+    console.log(gif);
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
@@ -75,19 +82,60 @@ export class TrendPage {
         }, {
           text: 'Share',
           handler: () => {
-
+            const shareActionSheet = this.actionSheetCtrl.create({
+              buttons: [
+                {
+                  text: 'Via Twitter',
+                  handler: () => {
+                    this.socialSharing.shareViaTwitter('Here is a gif for you from GifTT : ' + gif.title + " link : " + gif.url, gif.images.original.url, gif.images.original.url).catch((reason: any) => console.log(reason));
+                  }
+                }, {
+                  text: 'Via Facebook',
+                  handler: () => {
+                    this.socialSharing.shareViaFacebook('Here is a gif for you from GifTT : ' + gif.title + " link : " + gif.url, gif.images.original.url, gif.images.original.url).catch((reason: any) => console.log(reason));
+                  }
+                }, {
+                  text: 'Via Instagram',
+                  handler: () => {
+                    this.socialSharing.shareViaInstagram('Here is a gif for you from GifTT : ' + gif.title + " link : " + gif.url, gif.images.original.url).catch((reason: any) => console.log(reason));
+                  },
+                }, {
+                  text: 'Via Whatsapp',
+                  handler: () => {
+                    this.socialSharing.shareViaWhatsApp('Here is a gif for you from GifTT : ' + gif.title + " link : " + gif.url, gif.images.original.url, gif.images.original.url).catch((reason: any) => console.log(reason));
+                  }
+                }, {
+                  text: 'Cancel',
+                  role: 'cancel'
+                }
+              ]
+            });
+            shareActionSheet.present();
           }
         }, {
           text: 'Save',
-          handler: () => {
-
+          handler: () => { // burada kaldın
+            this.fileTransfer.download(encodeURI("https://www.tednasmith.com/wp-content/uploads/2018/08/TN-Lake_Helevorn.jpg"), this.file.dataDirectory + gif.id + ".gif", true).then((entry) => {
+              console.log(entry);
+              let alert = this.alertCtrl.create({
+                title: 'Yeah',
+                subTitle: `Downloaded the gif`,
+                buttons: ['Great']
+              });
+              alert.present();
+            }, (error) => {
+              console.log(error);
+              let alert = this.alertCtrl.create({
+                title: 'Oh no',
+                subTitle: error,
+                buttons: ['Ok :(']
+              });
+              alert.present();
+            });
           }
         }, {
           text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-
-          }
+          role: 'cancel'
         }
       ]
     });

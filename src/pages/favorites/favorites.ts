@@ -52,11 +52,19 @@ export class FavoritesPage {
           handler: () => {
             this.storageService.deleteFavorite(gif);
             let alert = this.alertCtrl.create({
-              title: 'Success',
-              subTitle: `We removed that ugly gif from your favorites`,
-              buttons: ['Great']
+              title: 'Exterminated',
+              subTitle: `It's gone`,
+              buttons: [
+                {
+                  text: 'Ok',
+                  handler: () => {
+                    this.ionViewDidEnter();
+                  }
+                }
+              ]
             });
             alert.present();
+
           }
         }, {
           text: 'Share',
@@ -70,10 +78,7 @@ export class FavoritesPage {
           }
         }, {
           text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-
-          }
+          role: 'cancel'
         }
       ]
     });
