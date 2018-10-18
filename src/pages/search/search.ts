@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { GiphyServiceProvider } from './../../providers/giphy-service/giphy-service';
 import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -14,12 +16,16 @@ export class SearchPage {
   loading: any;
   searchWord: String;
   searchResults: any;
+  fileTransfer: FileTransferObject;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public giphyService: GiphyServiceProvider, public loadingCtrl: LoadingController,
     public alertCtrl: AlertController, public socialSharing: SocialSharing,
-    public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController) {
+    public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController,
+    private transfer: FileTransfer, private file: File) {
+
     this.searchWord = navParams.get('searchWord');
+    this.fileTransfer = this.transfer.create();
 
     this.loading = this.loadingCtrl.create({
       spinner: 'crescent',
@@ -50,7 +56,8 @@ export class SearchPage {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Add to favorites',
+          text: 'Add to Favorites',
+          icon: 'star',
           handler: () => {
             this.storageService.isInFavorites(gif).then((data: any) => {
               if (data == true) {
@@ -73,13 +80,118 @@ export class SearchPage {
           }
         }, {
           text: 'Share',
+          icon: 'share',
           handler: () => {
-
+            const shareActionSheet = this.actionSheetCtrl.create({
+              buttons: [
+                {
+                  text: 'Via Twitter',
+                  icon: 'logo-twitter',
+                  handler: () => {
+                    this.loading = this.loadingCtrl.create({
+                      spinner: 'crescent',
+                      content: 'Sharing'
+                    });
+                    this.loading.present();
+                    this.socialSharing.shareViaTwitter('Here is a gif for you from GifTT : ' + gif.title + " link : ", gif.images.original.url, gif.images.original.url)
+                      .then(() => {
+                        this.loading.dismiss();
+                      })
+                      .catch((reason: any) => {
+                        this.loading.dismiss();
+                        let alert = this.alertCtrl.create({
+                          title: 'Something went wrong',
+                          subTitle: reason,
+                          buttons: ['Great!']
+                        });
+                        alert.present();
+                        console.log(reason);
+                      });
+                  }
+                }, {
+                  text: 'Via Facebook',
+                  icon: 'logo-facebook',
+                  handler: () => {
+                    this.loading = this.loadingCtrl.create({
+                      spinner: 'crescent',
+                      content: 'Sharing'
+                    });
+                    this.loading.present();
+                    this.socialSharing.shareViaFacebook('Here is a gif for you from GifTT : ' + gif.title + " link : ", gif.images.original.url, gif.images.original.url)
+                      .then(() => {
+                        this.loading.dismiss();
+                      })
+                      .catch((reason: any) => {
+                        this.loading.dismiss();
+                        let alert = this.alertCtrl.create({
+                          title: 'Something went wrong',
+                          subTitle: reason,
+                          buttons: ['Great!']
+                        });
+                        alert.present();
+                        console.log(reason);
+                      });
+                  }
+                }, {
+                  text: 'Via Whatsapp',
+                  icon: 'logo-whatsapp',
+                  handler: () => {
+                    this.loading = this.loadingCtrl.create({
+                      spinner: 'crescent',
+                      content: 'Sharing'
+                    });
+                    this.loading.present();
+                    this.socialSharing.shareViaWhatsApp('Here is a gif for you from GifTT : ' + gif.title + " link : ", gif.images.original.url, gif.images.original.url)
+                      .then(() => {
+                        this.loading.dismiss();
+                      })
+                      .catch((reason: any) => {
+                        this.loading.dismiss();
+                        let alert = this.alertCtrl.create({
+                          title: 'Something went wrong',
+                          subTitle: reason,
+                          buttons: ['Great!']
+                        });
+                        alert.present();
+                        console.log(reason);
+                      });
+                  }
+                }, {
+                  text: 'Cancel',
+                  role: 'cancel'
+                }
+              ]
+            });
+            shareActionSheet.present();
           }
         }, {
           text: 'Save',
+          icon: 'download',
           handler: () => {
-
+            this.loading = this.loadingCtrl.create({
+              spinner: 'crescent',
+              content: 'Downloading'
+            })
+            this.loading.present();
+            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalDataDirectory + "Downloads/" + gif.id + ".gif", true).then((entry) => {
+              this.loading.dismiss();
+              console.log(entry);
+              let alert = this.alertCtrl.create({
+                title: 'Yeah',
+                subTitle: `Downloaded the gif`,
+                buttons: ['Great']
+              });
+              alert.present();
+            }, (error) => {
+              this.loading.dismiss();
+              console.log(error);
+              let alert = this.alertCtrl.create({
+                title: 'Oh no',
+                subTitle: error,
+                buttons: ['Ok :(']
+              });
+              alert.present();
+            });
           }
         }, {
           text: 'Cancel',
@@ -91,12 +203,3 @@ export class SearchPage {
   }
 
 }
-
-/*
-    // this.socialSharing.share(("Here is a Gif for you from GifTT : " + gif.title + "\n" + encodeURI(gif.images.original.url)), "GifTT Gif").then((res) => {
-    //   console.log(res);
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
-    this.socialSharing.shareViaWhatsApp(encodeURI(gif.images.original.url), encodeURI(gif.images.original.url), encodeURI(gif.images.original.url));
-*/
