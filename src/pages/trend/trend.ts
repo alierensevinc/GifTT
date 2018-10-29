@@ -28,29 +28,31 @@ export class TrendPage {
   }
 
   ionViewDidEnter() {
-    this.loading = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: 'Some magic happens...'
-    })
-    this.loading.present();
+    if (this.trendResults == null) {
+      this.loading = this.loadingCtrl.create({
+        spinner: 'crescent',
+        content: 'Some magic happens...'
+      })
+      this.loading.present();
 
-    this.giphyService.getTrendingGifs().then((data: any) => {
-      this.trendResults = data.data;
-      if (this.trendResults.length != 0) {
-        this.loading.dismiss();
-      } else {
-        this.loading.dismiss();
-        let alert = this.alertCtrl.create({
-          title: 'Oops',
-          subTitle: `We cannot reach the trending gifs.\nWe are sorry.\nHere is a random gif for you`,
-          buttons: ['Let\'s Try Something Else']
-        });
-        alert.present();
-        this.giphyService.getRandomGif().then((data: any) => {
-          this.trendResults.push(data.data);
-        })
-      }
-    });
+      this.giphyService.getTrendingGifs().then((data: any) => {
+        this.trendResults = data.data;
+        if (this.trendResults.length != 0) {
+          this.loading.dismiss();
+        } else {
+          this.loading.dismiss();
+          let alert = this.alertCtrl.create({
+            title: 'Oops',
+            subTitle: `We cannot reach the trending gifs.\nWe are sorry.\nHere is a random gif for you`,
+            buttons: ['Let\'s Try Something Else']
+          });
+          alert.present();
+          this.giphyService.getRandomGif().then((data: any) => {
+            this.trendResults.push(data.data);
+          })
+        }
+      });
+    }
   }
 
   showImageActionSheet(gif) {
@@ -174,7 +176,7 @@ export class TrendPage {
               content: 'Downloading'
             })
             this.loading.present();
-            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalDataDirectory + "Downloads/" + gif.id + ".gif", true).then((entry) => {
+            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalRootDirectory + "Downloads/" + gif.id + ".gif", true).then((entry) => {
               this.loading.dismiss();
               console.log(entry);
               let alert = this.alertCtrl.create({
@@ -201,6 +203,15 @@ export class TrendPage {
       ]
     });
     actionSheet.present();
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
 }

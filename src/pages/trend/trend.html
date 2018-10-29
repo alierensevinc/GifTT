@@ -1,4 +1,9 @@
 <ion-content padding class="trendContent">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="ios-arrow-down-outline" refreshingSpinner="circles"
+    refresher-icon-color="white">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list no-lines *ngIf="trendResults">
     <ion-card class="trendItem" *ngFor="let result of trendResults">
       <img (press)="showImageActionSheet(result)" [src]="result.images.original.url" alt="There must be a big problem">

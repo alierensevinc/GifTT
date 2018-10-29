@@ -1,5 +1,4 @@
-.homeContent {
-    background-image: url("https://media.giphy.com/media/YJBNjrvG5Ctmo/giphy.gif");
+.homeContent {  
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -7,8 +6,11 @@
 }
 
 .homeSearchItem {
-    background-color: transparent;
-    color: white;
+    opacity: 0.8;
+    position: relative;
+    background-color: black;
+    color: white; 
+    text-decoration: none;  
 
     .homeSearchInput {
         font-size: 0.8em;

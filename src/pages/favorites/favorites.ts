@@ -171,7 +171,7 @@ export class FavoritesPage {
               content: 'Downloading'
             })
             this.loading.present();
-            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalDataDirectory + "Downloads/" + gif.id + ".gif", true).then((entry) => {
+            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalRootDirectory + "Downloads/" + gif.id + ".gif", true).then((entry) => {
               this.loading.dismiss();
               console.log(entry);
               let alert = this.alertCtrl.create({
