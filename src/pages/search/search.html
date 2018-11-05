@@ -1,7 +1,15 @@
-<ion-content padding class="searchContent">
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>Results for {{searchWord}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="pageContent">
   <ion-list no-lines *ngIf="searchResults">
-    <ion-card class="searchItem" *ngFor="let result of searchResults">
+    <ion-card class="pageItem" *ngFor="let result of searchResults">
       <img (press)="showImageActionSheet(result)" [src]="result.images.original.url" alt="There must be a big problem">
     </ion-card>
   </ion-list>
+  <div class="imageDiv">
+    <img src="./../../assets/imgs/giphy.gif" class="giphy" />
+  </div>
 </ion-content>

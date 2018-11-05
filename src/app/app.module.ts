@@ -48,7 +48,7 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     GiphyServiceProvider,
     GlobalSettingsProvider,
     SocialSharing,
@@ -58,4 +58,4 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
     File
   ]
 })
-export class AppModule {}
+export class AppModule { }

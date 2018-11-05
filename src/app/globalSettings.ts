@@ -4,16 +4,17 @@ import { Injectable } from '@angular/core';
 export class GlobalSettingsProvider {
 
   private KEY = 'XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq';
-  private searchEndPoint = 'https://api.giphy.com/v1/gifs/search?api_key=XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq&limit=25&offset=0&rating=G&lang=en&q=';
-  private translateEndPoint = 'https://api.giphy.com/v1/gifs/translate?api_key=XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq&s=';
-  private trendingEndPoint = 'https://api.giphy.com/v1/gifs/trending?api_key=XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq&limit=25&rating=G';
-  private randomEndPoint = 'https://api.giphy.com/v1/gifs/random?api_key=XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq&tag=&rating=G';
+  // private KEY = '1H0RZQJSjZ77Nn0EfgMhE4ZHuLbWsZTa'
+  private searchEndPoint = 'https://api.giphy.com/v1/gifs/search?api_key='+this.KEY+'&limit=25&offset=0&rating=G&lang=en&q=';
+  private translateEndPoint = 'https://api.giphy.com/v1/gifs/translate?api_key='+this.KEY+'&s=';
+  private trendingEndPoint = 'https://api.giphy.com/v1/gifs/trending?api_key='+this.KEY+'&limit=25&rating=G';
+  private randomEndPoint = 'https://api.giphy.com/v1/gifs/random?api_key='+this.KEY+'&tag=&rating=G';
 
   getKey() {
     return this.KEY;
   }
 
-    getSearchEndPoint(searchWord) {
+  getSearchEndPoint(searchWord) {
     return this.searchEndPoint + searchWord;
   }
 

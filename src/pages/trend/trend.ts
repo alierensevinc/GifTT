@@ -167,7 +167,7 @@ export class TrendPage {
             });
             shareActionSheet.present();
           }
-        }, {
+        },/* {
           text: 'Save',
           icon: 'download',
           handler: () => {
@@ -176,7 +176,7 @@ export class TrendPage {
               content: 'Downloading'
             })
             this.loading.present();
-            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalRootDirectory + "Downloads/" + gif.id + ".gif", true).then((entry) => {
+            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalRootDirectory + '/Download/' + gif.id + ".gif", true).then((entry) => {
               this.loading.dismiss();
               console.log(entry);
               let alert = this.alertCtrl.create({
@@ -196,7 +196,7 @@ export class TrendPage {
               alert.present();
             });
           }
-        }, {
+        },*/ {
           text: 'Cancel',
           role: 'cancel'
         }

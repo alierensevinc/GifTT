@@ -1,7 +1,10 @@
-<ion-content padding class="favoritesContent">
+<ion-content padding class="pageContent">
   <ion-list no-lines *ngIf="favoritesResults">
-    <ion-card class="favoritesItem" *ngFor="let result of favoritesResults">
+    <ion-card class="pageItem" *ngFor="let result of favoritesResults">
       <img (press)="showImageActionSheet(result)" [src]="result.images.original.url" alt="There must be a big problem">
     </ion-card>
   </ion-list>
+  <div class="imageDiv">
+    <img src="./../../assets/imgs/giphy.gif" class="giphy" />
+  </div>
 </ion-content>
