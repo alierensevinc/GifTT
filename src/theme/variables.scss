@@ -41,6 +41,10 @@ $colors: (
   dark:       #222
 );
 
+$refresher-icon-color: white;
+$refresher-text-color : white;
+$refresher-border-color : black;
+
 
 // App iOS Variables
 // --------------------------------------------------
@@ -86,3 +90,5 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+@import "pages.scss";

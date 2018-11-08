@@ -10,9 +10,9 @@ import { timer } from 'rxjs/observable/timer';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = TabsPage;
+  rootPage: any = TabsPage;
 
-  showSplash = true; // <-- show animation
+  showSplash = true;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

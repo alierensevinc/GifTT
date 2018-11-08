@@ -57,7 +57,7 @@ export class FavoritesPage {
     const actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Delete from favorites',
+          text: 'Remove from favorites',
           icon: 'trash',
           handler: () => {
             this.storageService.deleteFavorite(gif);
@@ -162,7 +162,7 @@ export class FavoritesPage {
             });
             shareActionSheet.present();
           }
-        }, {
+        },/* {
           text: 'Save',
           icon: 'download',
           handler: () => {
@@ -171,7 +171,7 @@ export class FavoritesPage {
               content: 'Downloading'
             })
             this.loading.present();
-            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalRootDirectory + "Downloads/" + gif.id + ".gif", true).then((entry) => {
+            this.fileTransfer.download(encodeURI(gif.images.original.url), this.file.externalRootDirectory + '/Download/' + gif.id + ".gif", true).then((entry) => {
               this.loading.dismiss();
               console.log(entry);
               let alert = this.alertCtrl.create({
@@ -185,13 +185,13 @@ export class FavoritesPage {
               console.log(error);
               let alert = this.alertCtrl.create({
                 title: 'Oh no',
-                subTitle: error,
+                subTitle: error.code,
                 buttons: ['Ok :(']
               });
               alert.present();
             });
           }
-        }, {
+        },*/ {
           text: 'Cancel',
           role: 'cancel'
         }
