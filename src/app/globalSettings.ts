@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GlobalSettingsProvider {
 
-  private KEY = 'XB9CnmJQ1b66xZC8Bq72IVLzfHmpMhZq';
-  // private KEY = '1H0RZQJSjZ77Nn0EfgMhE4ZHuLbWsZTa'
+  private KEY; // Add your app key
   private searchEndPoint = 'https://api.giphy.com/v1/gifs/search?api_key='+this.KEY+'&limit=25&offset=0&rating=G&lang=en&q=';
   private translateEndPoint = 'https://api.giphy.com/v1/gifs/translate?api_key='+this.KEY+'&s=';
   private trendingEndPoint = 'https://api.giphy.com/v1/gifs/trending?api_key='+this.KEY+'&limit=25&rating=G';
