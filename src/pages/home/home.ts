@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, LoadingController } from 'ionic-angular';
-import { SearchPage } from './../search/search';
-import { GiphyServiceProvider } from '../../providers/giphy-service/giphy-service';
-import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
-import { SocialSharing } from '@ionic-native/social-sharing';
+import {Component} from '@angular/core';
+import {
+  ActionSheetController,
+  AlertController,
+  IonicPage,
+  LoadingController,
+  NavController,
+  NavParams
+} from 'ionic-angular';
+import {SearchPage} from './../search/search';
+import {GiphyServiceProvider} from '../../providers/giphy-service/giphy-service';
+import {StorageServiceProvider} from '../../providers/storage-service/storage-service';
+import {SocialSharing} from '@ionic-native/social-sharing';
 
 @IonicPage()
 @Component({
@@ -18,15 +25,15 @@ export class HomePage {
   searchWord: String;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public storageService: StorageServiceProvider, public loadingCtrl: LoadingController,
-    public actionSheetCtrl: ActionSheetController, public socialSharing: SocialSharing,
-    public alertCtrl: AlertController, public giphyService: GiphyServiceProvider) {
+              public storageService: StorageServiceProvider, public loadingCtrl: LoadingController,
+              public actionSheetCtrl: ActionSheetController, public socialSharing: SocialSharing,
+              public alertCtrl: AlertController, public giphyService: GiphyServiceProvider) {
 
     this.ionViewDidEnter();
   }
 
   goSearchPage() {
-    this.navCtrl.push(SearchPage, { searchWord: this.searchWord })
+    this.navCtrl.push(SearchPage, {searchWord: this.searchWord})
   }
 
   ionViewDidEnter() {

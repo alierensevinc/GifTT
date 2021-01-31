@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, ActionSheetController } from 'ionic-angular';
-import { SocialSharing } from '@ionic-native/social-sharing';
-import { GiphyServiceProvider } from './../../providers/giphy-service/giphy-service';
-import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
+import {Component} from '@angular/core';
+import {
+  ActionSheetController,
+  AlertController,
+  IonicPage,
+  LoadingController,
+  NavController,
+  NavParams
+} from 'ionic-angular';
+import {SocialSharing} from '@ionic-native/social-sharing';
+import {GiphyServiceProvider} from './../../providers/giphy-service/giphy-service';
+import {StorageServiceProvider} from '../../providers/storage-service/storage-service';
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
+import {File} from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -19,10 +26,10 @@ export class SearchPage {
   fileTransfer: FileTransferObject;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public giphyService: GiphyServiceProvider, public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController, public socialSharing: SocialSharing,
-    public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController,
-    private transfer: FileTransfer, private file: File) {
+              public giphyService: GiphyServiceProvider, public loadingCtrl: LoadingController,
+              public alertCtrl: AlertController, public socialSharing: SocialSharing,
+              public storageService: StorageServiceProvider, public actionSheetCtrl: ActionSheetController,
+              private transfer: FileTransfer, private file: File) {
 
     this.searchWord = navParams.get('searchWord');
     this.fileTransfer = this.transfer.create();

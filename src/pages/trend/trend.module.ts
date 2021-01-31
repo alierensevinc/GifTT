@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { TrendPage } from './trend';
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {TrendPage} from './trend';
 
 @NgModule({
   declarations: [
@@ -10,4 +10,5 @@ import { TrendPage } from './trend';
     IonicPageModule.forChild(TrendPage),
   ],
 })
-export class TrendPageModule {}
+export class TrendPageModule {
+}

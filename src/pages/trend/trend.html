@@ -1,16 +1,18 @@
-<ion-content padding class="pageContent">
+<ion-content class="pageContent" padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="ios-arrow-down-outline" refreshingSpinner="circles" refreshingText="Refreshing Trending Gifs">
+    <ion-refresher-content pullingIcon="ios-arrow-down-outline" refreshingSpinner="circles"
+                           refreshingText="Refreshing Trending Gifs">
     </ion-refresher-content>
   </ion-refresher>
   <div>
-    <ion-list no-lines *ngIf="trendResults">
-      <ion-card class="pageItem" *ngFor="let result of trendResults">
-        <img (press)="showImageActionSheet(result)" [src]="result.images.original.url" alt="There must be a big problem">
+    <ion-list *ngIf="trendResults" no-lines>
+      <ion-card *ngFor="let result of trendResults" class="pageItem">
+        <img (press)="showImageActionSheet(result)" [src]="result.images.original.url"
+             alt="There must be a big problem">
       </ion-card>
     </ion-list>
   </div>
   <div class="imageDiv">
-    <img src="./../../assets/imgs/giphy.gif" class="giphy" />
+    <img class="giphy" src="./../../assets/imgs/giphy.gif"/>
   </div>
 </ion-content>

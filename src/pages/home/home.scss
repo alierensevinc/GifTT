@@ -1,26 +1,26 @@
-.homeContent {  
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-color: black;
-    position: relative;
+.homeContent {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: black;
+  position: relative;
 }
 
 .homeSearchItem {
-    opacity: 0.8;
-    position: relative;
-    background-color: black;
-    color: white; 
-    text-decoration: none;  
+  opacity: 0.8;
+  position: relative;
+  background-color: black;
+  color: white;
+  text-decoration: none;
 
-    .homeSearchInput {
-        font-size: 0.8em;
-        margin-bottom: 0px;
-    }
+  .homeSearchInput {
+    font-size: 0.8em;
+    margin-bottom: 0px;
+  }
 }
 
 .homeImageDiv {
-    position: absolute; 
-    bottom: 0px;
-    width:100%;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }

@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
-import { GlobalSettingsProvider } from './../../app/globalSettings';
+import {GlobalSettingsProvider} from './../../app/globalSettings';
 
 @Injectable()
 export class GiphyServiceProvider {
@@ -27,8 +27,8 @@ export class GiphyServiceProvider {
         .subscribe(data => {
           resolve(data);
         }), error => {
-          console.log(error);
-        };
+        console.log(error);
+      };
     })
   }
 

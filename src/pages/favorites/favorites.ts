@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController, AlertController } from 'ionic-angular';
-import { SocialSharing } from '@ionic-native/social-sharing';
-import { StorageServiceProvider } from '../../providers/storage-service/storage-service';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
+import {Component} from '@angular/core';
+import {
+  ActionSheetController,
+  AlertController,
+  IonicPage,
+  LoadingController,
+  NavController,
+  NavParams
+} from 'ionic-angular';
+import {SocialSharing} from '@ionic-native/social-sharing';
+import {StorageServiceProvider} from '../../providers/storage-service/storage-service';
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
+import {File} from '@ionic-native/file';
 
 
 @IonicPage()
@@ -18,10 +25,10 @@ export class FavoritesPage {
   fileTransfer: FileTransferObject;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public storageService: StorageServiceProvider, public loadingCtrl: LoadingController,
-    public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,
-    public socialSharing: SocialSharing,
-    private transfer: FileTransfer, private file: File) {
+              public storageService: StorageServiceProvider, public loadingCtrl: LoadingController,
+              public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,
+              public socialSharing: SocialSharing,
+              private transfer: FileTransfer, private file: File) {
 
     this.fileTransfer = this.transfer.create();
 

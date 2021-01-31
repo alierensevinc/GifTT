@@ -1,24 +1,24 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpClientModule } from '@angular/common/http';
-import { SocialSharing } from '@ionic-native/social-sharing';
-import { IonicStorageModule } from '@ionic/storage';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {HttpClientModule} from '@angular/common/http';
+import {SocialSharing} from '@ionic-native/social-sharing';
+import {IonicStorageModule} from '@ionic/storage';
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
+import {File} from '@ionic-native/file';
 
-import { MyApp } from './app.component';
-import { TabsPage } from '../pages/tabs/tabs';
-import { HomePage } from './../pages/home/home';
-import { FavoritesPage } from './../pages/favorites/favorites';
-import { SearchPage } from './../pages/search/search';
-import { TrendPage } from '../pages/trend/trend';
-import { GiphyServiceProvider } from '../providers/giphy-service/giphy-service';
-import { GlobalSettingsProvider } from './globalSettings';
-import { StorageServiceProvider } from '../providers/storage-service/storage-service';
+import {MyApp} from './app.component';
+import {TabsPage} from '../pages/tabs/tabs';
+import {HomePage} from './../pages/home/home';
+import {FavoritesPage} from './../pages/favorites/favorites';
+import {SearchPage} from './../pages/search/search';
+import {TrendPage} from '../pages/trend/trend';
+import {GiphyServiceProvider} from '../providers/giphy-service/giphy-service';
+import {GlobalSettingsProvider} from './globalSettings';
+import {StorageServiceProvider} from '../providers/storage-service/storage-service';
 
 
 @NgModule({
@@ -48,7 +48,7 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
     GiphyServiceProvider,
     GlobalSettingsProvider,
     SocialSharing,
@@ -58,4 +58,5 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
     File
   ]
 })
-export class AppModule { }
+export class AppModule {
+}

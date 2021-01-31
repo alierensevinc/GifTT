@@ -1,9 +1,12 @@
-<ion-content (press)="showImageActionSheet(result)" padding class="homeContent" [ngStyle]="{'background-image': 'url(' + backgroundUrl + ')'}">
-  <ion-item no-lines class="homeSearchItem">
-    <ion-input type="text" [(ngModel)]="searchWord" class="homeSearchInput" placeholder="Trump, Cats, Anything"></ion-input>
-    <button ion-button clear color="light" item-right (click)="goSearchPage()" [disabled]="!searchWord">Search</button>
+<ion-content (press)="showImageActionSheet(result)" [ngStyle]="{'background-image': 'url(' + backgroundUrl + ')'}"
+             class="homeContent"
+             padding>
+  <ion-item class="homeSearchItem" no-lines>
+    <ion-input [(ngModel)]="searchWord" class="homeSearchInput" placeholder="Trump, Cats, Anything"
+               type="text"></ion-input>
+    <button (click)="goSearchPage()" [disabled]="!searchWord" clear color="light" ion-button item-right>Search</button>
   </ion-item>
   <div class="homeImageDiv">
-    <img src="./../../assets/imgs/giphy.gif" class="giphy" />
+    <img class="giphy" src="./../../assets/imgs/giphy.gif"/>
   </div>
 </ion-content>

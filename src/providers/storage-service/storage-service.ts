@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { AlertController } from 'ionic-angular';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Storage} from '@ionic/storage';
+import {AlertController} from 'ionic-angular';
 
 @Injectable()
 export class StorageServiceProvider {
 
   constructor(public http: HttpClient, public storage: Storage,
-    public alertCtrl: AlertController) {
+              public alertCtrl: AlertController) {
   }
 
   getFavorites() {
